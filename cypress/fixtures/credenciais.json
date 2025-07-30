@@ -1,0 +1,10 @@
+{
+    "valida": {
+        "email": "teste02@teste.com",
+        "senha": "123456"
+    },
+    "invalida": {
+        "email": "invalido@invalido.com",
+        "senha": "654321"
+    }
+}
