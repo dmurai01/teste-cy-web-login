@@ -3,7 +3,7 @@ describe('Cadastro', () => {
         cy.visit('/')
     });
 
-    it('Cadastro com credenciais válidas', () => {
+    it.only('Cadastro com credenciais válidas', () => {
         cy.get('[href="register.html"]').click()
 
         cy.cadastroComCredenciaisValidas()

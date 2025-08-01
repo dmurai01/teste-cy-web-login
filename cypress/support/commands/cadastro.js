@@ -8,7 +8,9 @@ Cypress.Commands.add('cadastroComCredenciaisValidas', () => {
     const nome = faker.person.firstName()
     const sobrenome = faker.person.lastName()
     const nomeCompleto = `${nome} ${sobrenome}`
-    const email = `${nome}.${sobrenome}@teste.com`
+    const nomeSemAcento = nome.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const sobrenomeSemAcento = sobrenome.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const email = `${nomeSemAcento}.${sobrenomeSemAcento}@teste.com`
 
 
     cy.get('#nome').click().type(nomeCompleto)
@@ -17,5 +19,6 @@ Cypress.Commands.add('cadastroComCredenciaisValidas', () => {
     cy.contains('button', 'Cadastrar').click()
 
     cy.get('#registerMessage').should('have.text', 'Cadastro realizado com sucesso!')
+    return cy.wrap(email)
 })
 

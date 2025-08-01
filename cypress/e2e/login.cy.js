@@ -6,6 +6,27 @@ describe('Login', () => {
   it('Login com credenciais válidas deve ir para área de Boas Vindas', () => {
     cy.loginComCredenciaisValidas()
 
-    cy.contains('h1', 'Bem-vindo!').should('be.visible')
+    cy.contains('h2', 'Seus dados').should('be.visible')
   })
+
+  it('Login com credenciais inválidas deve retornar mensagem de erro', () => {
+    cy.loginComCredenciaisInvalidas()
+
+    cy.contains('#loginMessage', 'Credenciais inválidas.').should('be.visible')
+  });
+
+  it('Realizar 3 tentativas de login com senha incorreta, bloqueia usuário', () => {
+    cy.get('[href="register.html"]').click()
+    cy.cadastroComCredenciaisValidas().then((email) => {
+      cy.wait(2000)
+
+      for (let i = 0; i < 3; i++) {
+        cy.loginRecebendoParametros(email, 'errado')
+      }
+      cy.loginRecebendoParametros(email, '123456')
+
+    })
+    cy.contains('#loginMessage', 'Usuário bloqueado por excesso de tentativas inválidas.').should('be.visible')
+
+  });
 })
