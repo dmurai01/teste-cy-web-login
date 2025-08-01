@@ -9,6 +9,20 @@ describe('Login', () => {
     cy.contains('h2', 'Seus dados').should('be.visible')
   })
 
+  it('Tentativa de login sem preencher email deve aparecer mensagem de erro e o foco ir para o input de email', () => {
+    cy.get('#email').click().clear()
+    cy.get('#password').click().clear().type('123456')
+    cy.contains('button', 'Entrar').click()
+    cy.get('label[for="email"]').should('have.class', 'active');
+  })
+
+  it('Tentativa de login sem preencher senha deve aparecer mensagem de erro e o foco ir para o input de senha', () => {
+    cy.get('#email').click().clear().type('teste@teste.com')
+    cy.get('#password').click().clear()
+    cy.contains('button', 'Entrar').click()
+    cy.get('label[for="password"]').should('have.class', 'active');
+  })
+
   it('Login com credenciais inválidas deve retornar mensagem de erro', () => {
     cy.loginComCredenciaisInvalidas()
 
@@ -19,7 +33,6 @@ describe('Login', () => {
     cy.get('[href="register.html"]').click()
     cy.cadastroComCredenciaisValidas().then((email) => {
       cy.wait(2000)
-
       for (let i = 0; i < 3; i++) {
         cy.loginRecebendoParametros(email, 'errado')
       }

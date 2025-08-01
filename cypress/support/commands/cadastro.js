@@ -22,3 +22,22 @@ Cypress.Commands.add('cadastroComCredenciaisValidas', () => {
     return cy.wrap(email)
 })
 
+Cypress.Commands.add('cadastroComParametros', (nome, email, senha) => {
+    if (nome != '') {
+        cy.get('#nome').click().type(nome)
+    } else {
+        cy.get('#nome').click()
+    }
+    if (email != '') {
+        cy.get('#email').click().type(email)
+    } else {
+        cy.get('#email').click()
+    }
+    if (senha != '') {
+        cy.get('#senha').click().type(senha)
+    } else {
+        cy.get('#senha').click()
+    }
+    cy.contains('button', 'Cadastrar').click()
+})
+
