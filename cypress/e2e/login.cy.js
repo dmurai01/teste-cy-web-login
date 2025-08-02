@@ -34,6 +34,27 @@ describe('Login', () => {
 
     })
     cy.contains('#loginMessage', 'Usuário bloqueado por excesso de tentativas inválidas.').should('be.visible')
-
   });
+
+  it('Login com senha recuperada corretamente deve ir para área de Boas Vindas', () => {
+    cy.get('[href="register.html"]').click()
+    cy.cadastroComCredenciaisValidas().then((email) => {
+      cy.wait(2000)
+      cy.loginRecebendoParametros(email, '123456')
+      cy.wait(1000)
+
+      cy.get('#linkAlterarSenha').click()
+      cy.wait(1000)
+      
+      cy.atualizarSenhaSemNovoCadastro('123456', '', '654321')
+      cy.wait(1000)
+
+      cy.get('[href="index.html"]').click()
+
+      cy.loginRecebendoParametros(email, '654321')
+    })
+    // cy.contains('#loginMessage', 'Usuário bloqueado por excesso de tentativas inválidas.').should('be.visible')
+    cy.contains('h2', 'Seus dados').should('be.visible')
+  })
+
 })

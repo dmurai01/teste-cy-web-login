@@ -5,12 +5,7 @@ describe('Recuperar Senha', () => {
     });
 
     it('Recuperar Senha ao enviar email existente deve receber a mensagem de sucesso "Senha redefinida com sucesso."', () => {
-        cy.acessarPaginaCadastro()
-        cy.cadastroComCredenciaisValidas().then((email) => {
-            cy.wait(2000)
-            cy.get('[href="recover.html"]').click()
-            cy.recuperarSenha(email)
-        })
+        cy.recuperarSenhaSucesso()
         cy.contains('#recoverMessage', 'Senha redefinida com sucesso.').should('be.visible')
     });
 
