@@ -10,31 +10,23 @@ describe("Cadastro e alteração de senha", () => {
   let novaSenha = "123456789@";
 
   it("Cadastro e alteração de senha com usuário dinâmico", () => {
-    cy.atualizarSenhaDinamico(novoNome, novaSenha);
-
+    cy.atualizarSenhaDinamico('', novoNome, novaSenha);
     cy.contains("Cadastro atualizado com sucesso").should("be.visible");
     cy.get("a").contains("Voltar ao Login").click();
 
     cy.loginComNovaSenha(novoNome, novaSenha);
   });
+
   it("Ao informar a senha atual incorreta não deve ser possível alterar", () => {
-    cy.fixture("credenciaisdinamicas").then((credenciaisdinamicas) => {
-      cy.get("#linkAlterarSenha").click();
-      cy.get("#senhaAtual").type(credenciaisdinamicas.atualizarsenha.novaSenha);
-      cy.get("#novoNome").clear().type(novoNome);
-      cy.get(".btn").click();
-      cy.contains("Senha atual incorreta.").should("be.visible");
-    });
+    cy.atualizarSenhaDinamico('senhaerrada', novoNome, novaSenha);
+    cy.contains("Senha atual incorreta.").should("be.visible");
   });
+
   it("Ao não informar uma nova senha não deve ser possível alterar", () => {
-    cy.fixture("credenciaisdinamicas").then((credenciaisdinamicas) => {
-      cy.get("#linkAlterarSenha").click();
-      cy.get("#senhaAtual").type(credenciaisdinamicas.atualizarsenha.senhaAtual);
-      cy.get("#novoNome").clear().type(novoNome);
-      cy.get(".btn").click();
-      cy.contains("Nova senha é obrigatória").should("be.visible");
-    }); // vai ter bug aqui, pois o campo nova senha não é obrigatório
+    cy.atualizarSenhaDinamico('', novoNome, '');
+    cy.contains("Nova senha é obrigatória").should("be.visible");
   });
+
   it("Ao não informar nenhum campo não deve ser possível alterar", () => {
     cy.get("#linkAlterarSenha").click();
     cy.get("#senhaAtual").clear();

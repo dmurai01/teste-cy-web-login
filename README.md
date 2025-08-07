@@ -78,4 +78,4 @@ Os relatórios de execução dos testes são gerados automaticamente em [`cypres
 
 ---
 
-M2.0 - Grupo 11 - Ana Anzolin, Anderson Wagner, Daniela Murai, Joyce Andrade, Maria Jaciara
+M2.0 - Grupo 11 - Anderson Wagner, Daniela Murai
