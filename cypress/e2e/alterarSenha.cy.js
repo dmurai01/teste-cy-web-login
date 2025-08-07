@@ -10,6 +10,7 @@ describe("Cadastro e alteração de senha", () => {
   let novaSenha = "123456789@";
 
   it("Cadastro e alteração de senha com usuário dinâmico", () => {
+    cy.atualizarSenhaDinamico('', novoNome, novaSenha);
     cy.contains("Cadastro atualizado com sucesso").should("be.visible");
     cy.get("a").contains("Voltar ao Login").click();
 
