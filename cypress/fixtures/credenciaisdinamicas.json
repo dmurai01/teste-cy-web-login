@@ -1,0 +1,8 @@
+{
+  "atualizarsenha": {
+    "email": "davi lucca.oliveira@teste.com",
+    "senhaAtual": "123456",
+    "novaSenha": "@12345678",
+    "novoNome": "Davi Lucca Oliveira Alterado"
+  }
+}

@@ -29,3 +29,21 @@ Cypress.Commands.add('loginComCredenciaisInvalidas', () => {
     })
     cy.contains('button', 'Entrar').click()
 })
+Cypress.Commands.add('loginComCredenciaisDinamico', () => {
+    cy.readFile('cypress/fixtures/credenciaisdinamicas.json').then(credenciaisdinamicas => {
+          cy.visit('/')
+            cy.get('#email').type(credenciaisdinamicas.atualizarsenha.email)
+            cy.get('#password').type(credenciaisdinamicas.atualizarsenha.senhaAtual)
+            cy.contains('button', 'Entrar').click()
+            cy.contains(credenciaisdinamicas.atualizarsenha.email).should('be.visible')
+    })
+})
+Cypress.Commands.add('loginComNovaSenha', (novoNome, novaSenha) => {
+    cy.readFile('cypress/fixtures/credenciaisdinamicas.json').then(credenciais => {
+            cy.get('#email').type(credenciais.atualizarsenha.email)
+            cy.get('#password').type(novaSenha)
+            cy.contains('button', 'Entrar').click()
+            cy.contains(credenciais.atualizarsenha.email).should('be.visible')
+            cy.contains(novoNome).should('be.visible')
+    })
+})

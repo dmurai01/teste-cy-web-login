@@ -15,7 +15,7 @@ describe('Atualizar Senha', () => {
     });
 
     it('Atualizar nome com novo usuário enviando senha atual correta deve receber mensagem de sucesso e visualizar a alteração na tela de Boas-Vindas', () => {
-        cy.atualizarSenha('123456', 'Nome Alterado', '')
+        cy.atualizarSenha('123456', 'Nome Alterado', '12345678')
         cy.get('#updatePasswordMessage').should('have.text', 'Cadastro atualizado com sucesso.')
         cy.wait(1000)
         cy.get('[href="users.html"]').click()

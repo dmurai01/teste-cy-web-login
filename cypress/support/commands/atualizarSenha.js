@@ -33,3 +33,13 @@ Cypress.Commands.add('atualizarSenhaSemNovoCadastro', (senhaAtual, novoNome, nov
     }
     cy.contains('button', 'Alterar Senha').click()
 })
+Cypress.Commands.add('atualizarSenhaDinamico', (novoNome, novaSenha) => {
+    
+    cy.fixture('credenciaisdinamicas').then((credenciaisdinamicas) => {
+        cy.get('#linkAlterarSenha').click()
+            cy.get('#senhaAtual').type(credenciaisdinamicas.atualizarsenha.senhaAtual)
+            cy.get('#novoNome').clear().type(novoNome)
+            cy.get('#novaSenha').type(novaSenha)
+            cy.get('.btn').click()
+    })
+})

@@ -41,3 +41,35 @@ Cypress.Commands.add('cadastroComParametros', (nome, email, senha) => {
     cy.contains('button', 'Cadastrar').click()
 })
 
+Cypress.Commands.add('cadastroComCredenciaisValidasDinamico', () => {
+    const nome = faker.person.firstName().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const sobrenome = faker.person.lastName().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const nomeCompleto = `${nome} ${sobrenome}`.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const email = `${nome}.${sobrenome}@teste.com`.toLowerCase()
+    const senhaAtual = '123456'
+    const novaSenha = '@12345678'
+    const novoNome = `${nomeCompleto} Alterado`
+
+    cy.get('[href="register.html"]').click()
+    cy.get('#nome').click().type(nomeCompleto)
+    cy.get('#email').click().type(email)
+    cy.get('#senha').click().type(senhaAtual)
+    cy.contains('button', 'Cadastrar').click()
+
+    cy.get('#registerMessage').should('have.text', 'Cadastro realizado com sucesso!')
+
+    // Salvar os dados no formato esperado pelo teste
+    const dados = {
+        atualizarsenha: {
+            email,
+            senhaAtual,
+            novaSenha,
+            novoNome
+        }
+    }
+
+    cy.writeFile('cypress/fixtures/credenciaisdinamicas.json', dados)
+
+    return cy.wrap(dados.atualizarsenha)
+})
+
