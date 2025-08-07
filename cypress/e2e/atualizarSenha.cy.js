@@ -21,23 +21,4 @@ describe('Atualizar Senha', () => {
         cy.get('[href="users.html"]').click()
         cy.get('#userInfo').should('contain', 'Nome Alterado')
     });
-
-    // it.only('Atualizar senha com usuário que recuperou uma senha e enviar credenciais corretas deve receber mensagem de sucesso', () => {
-    //     cy.acessarPaginaCadastro()
-    //     cy.cadastroComCredenciaisValidas().then((email) => {
-    //         cy.wait(2000)
-    //         for (let i = 0; i < 3; i++) {
-    //             cy.loginRecebendoParametros(email, 'errado')
-    //         }
-    //         cy.get('[href="recover.html"]').click()
-    //         cy.recuperarSenha(email).then((novaSenha) => {
-    //             cy.log(novaSenha)
-    //             cy.visit('/')
-    //             cy.loginRecebendoParametros(email, novaSenha)
-    //             // Adicione asserções aqui, se necessário
-    //         })
-    //     })
-    // });
-
-
 });

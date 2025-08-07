@@ -25,8 +25,8 @@ describe("Cadastro e alteração de senha", () => {
     cy.atualizarSenhaDinamico('', novoNome, '');
     cy.contains("Nova senha é obrigatória").should("be.visible");
   });
-  
-  it.only("Ao não informar nenhum campo não deve ser possível alterar", () => {
+
+  it("Ao não informar nenhum campo não deve ser possível alterar", () => {
     cy.get("#linkAlterarSenha").click();
     cy.get("#senhaAtual").clear();
     cy.get("#novoNome").clear();
